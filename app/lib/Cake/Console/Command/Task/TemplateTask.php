@@ -2,17 +2,18 @@
 /**
  * Template Task can generate templated output Used in other Tasks
  *
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * PHP 5
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @since         CakePHP(tm) v 1.3
- * @license       https://opensource.org/licenses/mit-license.php MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 App::uses('AppShell', 'Console/Command');
@@ -42,7 +43,7 @@ class TemplateTask extends AppShell {
 	public $templatePaths = array();
 
 /**
- * Initialize callback. Setup paths for the template task.
+ * Initialize callback.  Setup paths for the template task.
  *
  * @return void
  */
@@ -121,7 +122,7 @@ class TemplateTask extends AppShell {
 			$data = array($one => $two);
 		}
 
-		if (!$data) {
+		if ($data == null) {
 			return false;
 		}
 		$this->templateVars = $data + $this->templateVars;
@@ -164,7 +165,7 @@ class TemplateTask extends AppShell {
  * @return string returns the path to the selected theme.
  */
 	public function getThemePath() {
-		if (count($this->templatePaths) === 1) {
+		if (count($this->templatePaths) == 1) {
 			$paths = array_values($this->templatePaths);
 			return $paths[0];
 		}

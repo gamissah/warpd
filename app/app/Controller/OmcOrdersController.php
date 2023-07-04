@@ -733,7 +733,7 @@ class OmcOrdersController extends OmcAppController
                     /** Search string */
                     $rp = isset($_POST['rp']) ? $_POST['rp'] : 10;
                     $limit = $rp;
-                    //$start = ($page - 1) * $rp;
+                    $start = ($page - 1) * $rp;
 
                     //get users id for this company only
                     $condition_array = array(
@@ -770,13 +770,7 @@ class OmcOrdersController extends OmcAppController
                         'OmcCustomer'=>array('fields' => array('OmcCustomer.id', 'OmcCustomer.name','OmcCustomer.credit_limit','OmcCustomer.credit_days'))
                     );
                     // $fields = array('User.id', 'User.username', 'User.first_name', 'User.last_name', 'User.group_id', 'User.active');
-                    $data_table = $this->OmcCustomerOrder->find('all', array(
-						'conditions' => $condition_array,
-						'contain'=>$contain,
-						'order' => "OmcCustomerOrder.$sortname $sortorder",
-						'limit' => $limit,
-						'page' => $page,
-						'recursive' => 1));
+                    $data_table = $this->OmcCustomerOrder->find('all', array('conditions' => $condition_array, 'contain'=>$contain,'order' => "OmcCustomerOrder.$sortname $sortorder", 'limit' => $start . ',' . $limit, 'recursive' => 1));
                     $data_table_count = $this->OmcCustomerOrder->find('count', array('conditions' => $condition_array, 'recursive' => -1));
 
                     $total_records = $data_table_count;
@@ -839,7 +833,7 @@ class OmcOrdersController extends OmcAppController
                         return json_encode(array('success' => true, 'total' => $total_records, 'page' => $page, 'rows' => $return_arr));
                     }
                     else {
-                        return json_encode(array('success' => false, 'total' => $total_records, 'page' => $page, 'rows' => array(), 'query_result'=>$data_table));
+                        return json_encode(array('success' => false, 'total' => $total_records, 'page' => $page, 'rows' => array()));
                     }
 
                     break;
